@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>NusaDrive - Register</title>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1A3A6B 0%, #2563A8 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Afacad', system-ui, sans-serif;
+            padding: 24px;
+        }
+
+        .container {
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .left {
+            flex: 1;
+            border-radius: 20px;
+            overflow: hidden;
+            max-height: 520px;
+        }
+
+        .left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 24px;
+            padding: 40px 36px;
+            width: 360px;
+            flex-shrink: 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .logo svg {
+            width: 60px;
+            height: auto;
+            margin-bottom: 8px;
+        }
+
+        .logo h1 {
+            font-size: 22px;
+            font-weight: 700;
+            color: #111;
+            letter-spacing: -0.3px;
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 13px 16px;
+            border: 1.5px solid #D1D5DB;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #111;
+            outline: none;
+            transition: border-color 0.2s;
+            font-family: 'Afacad', system-ui, sans-serif;
+        }
+
+        .form-group input::placeholder {
+            color: #9CA3AF;
+        }
+
+        .form-group input:focus {
+            border-color: #1A3A6B;
+        }
+
+        .btn-register {
+            width: 100%;
+            padding: 13px;
+            background: #111;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-family: 'Afacad', system-ui, sans-serif;
+            margin-top: 4px;
+        }
+
+        .btn-register:hover {
+            background: #1A3A6B;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: #6B7280;
+        }
+
+        .login-link a {
+            color: #1A3A6B;
+            font-weight: 500;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .error-msg {
+            background: #FEE2E2;
+            color: #991B1B;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 14px;
+            display: none;
+        }
+
+        .success-msg {
+            background: #D1FAE5;
+            color: #065F46;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 13px;
+            margin-bottom: 14px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <div class="left">
+            <img src="assets/rental-banner.jpg" alt="Interior Mobil" />
+        </div>
+
+        <div class="card">
+            <div class="logo">
+                <img src="assets/logo.svg" alt="NusaDrive Logo" width="100" />
+                <h1>NusaDrive</h1>
+            </div>
+
+            <div class="error-msg" id="errorMsg"></div>
+            <div class="success-msg" id="successMsg"></div>
+
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Email" />
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="nama" placeholder="Nama Lengkap" />
+            </div>
+
+            <div class="form-group">
+                <input type="tel" id="no_telp" placeholder="No. Telp" />
+            </div>
+
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Password" />
+            </div>
+
+            <button class="btn-register" onclick="handleRegister()">Register</button>
+
+            <div class="login-link">
+                Sudah punya akun? <a href="index.html">Login</a>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        async function handleRegister() {
+        const email = document.getElementById('email').value.trim();
+        const nama = document.getElementById('nama').value.trim();
+        const no_telp = document.getElementById('no_telp').value.trim();
+        const password = document.getElementById('password').value.trim();
+        const errorMsg = document.getElementById('errorMsg');
+        const successMsg = document.getElementById('successMsg');
+
+        errorMsg.style.display = 'none';
+        successMsg.style.display = 'none';
+
+        if (!email || !nama || !no_telp || !password) {
+            errorMsg.textContent = 'Semua field wajib diisi.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        if (password.length < 6) {
+            errorMsg.textContent = 'Password minimal 6 karakter.';
+            errorMsg.style.display = 'block';
+            return;
+        }
+
+        try {
+            const res = await fetch('http://localhost:3000/api/auth/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, nama, no_telp, password })
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+            errorMsg.textContent = data.message || 'Register gagal.';
+            errorMsg.style.display = 'block';
+            return;
+            }
+
+            successMsg.textContent = 'Register berhasil! Mengarahkan ke halaman login...';
+            successMsg.style.display = 'block';
+
+            setTimeout(() => {
+            window.location.href = 'index.html';
+            }, 1500);
+
+        } catch (err) {
+            errorMsg.textContent = 'Tidak dapat terhubung ke server.';
+            errorMsg.style.display = 'block';
+        }
+        }
+
+        document.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') handleRegister();
+        });
+    </script>
+</body>
+</html>
