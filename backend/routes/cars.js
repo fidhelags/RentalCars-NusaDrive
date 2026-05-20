@@ -44,7 +44,6 @@ router.post('/', (req, res) => {
 
     const cars = readCars();
 
-    // cek plat duplikat
     const existing = cars.find(c => c.plat === plat);
     if (existing) {
         return res.status(400).json({ message: 'Plat nomor sudah terdaftar.' });
@@ -77,7 +76,6 @@ router.put('/:id', (req, res) => {
         return res.status(404).json({ message: 'Mobil tidak ditemukan.' });
     }
 
-    // cek plat duplikat (kecuali mobil itu sendiri)
     const duplicate = cars.find(c => c.plat === plat && c.id !== req.params.id);
     if (duplicate) {
         return res.status(400).json({ message: 'Plat nomor sudah digunakan mobil lain.' });
@@ -106,7 +104,6 @@ router.delete('/:id', (req, res) => {
         return res.status(404).json({ message: 'Mobil tidak ditemukan.' });
     }
 
-    // cek apakah mobil sedang disewa
     if (cars[index].status === 'disewa') {
         return res.status(400).json({ message: 'Mobil sedang disewa, tidak bisa dihapus.' });
     }

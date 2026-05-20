@@ -6,12 +6,12 @@ const path = require('path');
 // Path ke file JSON
 const usersPath = path.join(__dirname, '../data/users.json');
 
-// Helper: baca JSON
+// Read JSON
 function readUsers() {
     return JSON.parse(fs.readFileSync(usersPath, 'utf-8'));
 }
 
-// Helper: tulis JSON
+// Write JSON
 function writeUsers(data) {
     fs.writeFileSync(usersPath, JSON.stringify(data, null, 2));
 }
@@ -23,22 +23,18 @@ router.post('/login', (req, res) => {
     const users = readUsers();
     const user = users.find(u => u.email === email);
 
-    // cek email & password
     if (!user || user.password !== password) {
         return res.status(401).json({ message: 'Email atau password salah.' });
     }
 
-    // cek kalau centang admin tapi bukan admin
     if (isAdmin && user.role !== 'admin') {
         return res.status(403).json({ message: 'Anda tidak memiliki akses admin.' });
     }
 
-    // cek kalau admin tapi tidak centang admin
     if (!isAdmin && user.role === 'admin') {
         return res.status(403).json({ message: 'Silakan centang "Login sebagai Admin".' });
     }
 
-    // login berhasil
     res.json({
         message: 'Login berhasil.',
         token: 'token-' + user.id, 
@@ -57,13 +53,11 @@ router.post('/register', (req, res) => {
 
     const users = readUsers();
 
-    // cek email sudah terdaftar
     const existing = users.find(u => u.email === email);
     if (existing) {
         return res.status(400).json({ message: 'Email sudah terdaftar.' });
     }
 
-     // buat ID baru
     const newId = 'C' + String(users.length).padStart(3, '0');
 
     const newUser = {
