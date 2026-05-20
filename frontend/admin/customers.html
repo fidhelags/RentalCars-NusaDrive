@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NusaDrive - Customer Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Afacad:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="admin-page">
+
+    <nav>
+        <div class="nav-logo">
+            <img src="../assets/logo-white.svg" alt="NusaDrive" />
+        </div>
+        <div class="nav-right">
+            <ul class="nav-links">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="cars.html">Mobil</a></li>
+                <li><a href="customers.html" class="active">Customer</a></li>
+                <li><a href="rentals.html">Transaksi</a></li>
+            </ul>
+            <button class="nav-logout" onclick="handleLogout()" title="Logout">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+                    <polyline points="16 17 21 12 16 7" />
+                    <line x1="21" y1="12" x2="9" y2="12" />
+                </svg>
+            </button>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="top-bar">
+            <div class="section-title">Data Customer</div>
+        </div>
+
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nama</th>
+                        <th>Email</th>
+                        <th>No. Telp</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="customersTable">
+                    <tr>
+                        <td colspan="5" style="color:#9CA3AF;">Memuat data...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script src="../js/auth.js"></script>
+    <script src="../js/adminCustomers.js"></script>
+</body>
+
+</html>
