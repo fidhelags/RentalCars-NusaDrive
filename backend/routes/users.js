@@ -27,33 +27,6 @@ router.get('/:id', (req, res) => {
     res.json(user);
 });
 
-// PUT /api/users/:id
-router.put('/:id', (req, res) => {
-    const { nama, email, no_telp } = req.body;
-
-    const users = readUsers();
-    const index = users.findIndex(u => u.id === req.params.id);
-
-    if (index === -1) {
-        return res.status(404).json({ message: 'User tidak ditemukan.' });
-    }
-
-    const duplicate = users.find(u => u.email === email && u.id !== req.params.id);
-    if (duplicate) {
-        return res.status(400).json({ message: 'Email sudah digunakan user lain.' });
-    }
-
-    users[index] = {
-        ...users[index],
-        nama: nama || users[index].nama,
-        email: email || users[index].email,
-        no_telp: no_telp || users[index].no_telp
-    };
-
-    writeUsers(users);
-    res.json({ message: 'Customer berhasil diupdate.', user: users[index] });
-});
-
 // DELETE /api/users/:id
 router.delete('/:id', (req, res) => {
     const users = readUsers();
@@ -84,9 +57,14 @@ router.put('/:id', (req, res) => {
     }
 
     if (email) {
-        const duplicate = users.find(u => u.email === email && u.id !== req.params.id);
+        const duplicate = users.find(
+            u => u.email === email && u.id !== req.params.id
+        );
+
         if (duplicate) {
-            return res.status(400).json({ message: 'Email sudah digunakan user lain.' });
+            return res.status(400).json({
+                message: 'Email sudah digunakan user lain.'
+            });
         }
     }
 
@@ -99,7 +77,11 @@ router.put('/:id', (req, res) => {
     };
 
     writeUsers(users);
-    res.json({ message: 'Profil berhasil diupdate.', user: users[index] });
+
+    res.json({
+        message: 'Profil berhasil diupdate.',
+        user: users[index]
+    });
 });
 
 module.exports = router;

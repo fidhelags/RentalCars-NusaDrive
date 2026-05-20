@@ -1,11 +1,10 @@
 [
   {
     "id": "M001",
-    "nama": "Innova",
-    "plat": "A 1111 CAR",
-    "kursi": 7,
-    "tarif_per_hari": 500000,
-    "status": "tersedia",
+    "nama": "Innova Reborn",
+    "plat": "A 1234 CAR",
+    "kursi": 6,
+    "tarif_per_hari": 550000,
     "gambar": "innova.jpg"
   },
   {
@@ -14,7 +13,6 @@
     "plat": "B 1234 HM",
     "kursi": 6,
     "tarif_per_hari": 200000,
-    "status": "disewa",
     "gambar": "xenia.jpg"
   },
   {
@@ -23,8 +21,8 @@
     "plat": "C 4444 R",
     "kursi": 6,
     "tarif_per_hari": 450000,
-    "status": "disewa",
-    "gambar": "rush.jpg"
+    "gambar": "rush.jpg",
+    "status": "tersedia"
   },
   {
     "id": "M005",
@@ -32,7 +30,6 @@
     "plat": "R 1 CH",
     "kursi": 6,
     "tarif_per_hari": 2000000,
-    "status": "tersedia",
     "gambar": "rubicon.jpg"
   },
   {
@@ -41,7 +38,6 @@
     "plat": "B 5256 CGV",
     "kursi": 4,
     "tarif_per_hari": 1000000,
-    "status": "tersedia",
-    "gambar": ""
+    "gambar": "jazz.jpg"
   }
 ]

@@ -39,8 +39,20 @@
     "tanggal_mulai": "2026-05-19",
     "tanggal_selesai": "2026-05-21",
     "total_biaya": 900000,
-    "status": "selesai",
+    "status": "aktif",
     "tanggal_bayar": null,
     "metode_pembayaran": null
+  },
+  {
+    "id": "TRX005",
+    "customer_id": "C005",
+    "mobil_id": "M003",
+    "tanggal_mulai": "2026-05-21",
+    "tanggal_selesai": "2026-05-22",
+    "jumlah_hari": 1,
+    "total_biaya": 450000,
+    "status": "selesai",
+    "metode_pembayaran": "transfer",
+    "tanggal_bayar": "2026-05-20"
   }
 ]

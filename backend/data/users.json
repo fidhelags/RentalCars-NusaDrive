@@ -17,18 +17,26 @@
   },
   {
     "id": "C002",
-    "nama": "Ghaisani",
-    "email": "ghaisani@gmail.com",
+    "nama": "Firdaussy",
+    "email": "firdaussy@gmail.com",
     "no_telp": "086677889911",
-    "password": "ghaisani123",
+    "password": "firdaussy123",
     "role": "customer"
   },
   {
     "id": "C003",
-    "nama": "Shabrina",
-    "email": "shabrina@gmail.com",
+    "nama": "Rey",
+    "email": "rey@gmail.com",
     "no_telp": "08123456789",
-    "password": "shabrina123",
+    "password": "rey123",
+    "role": "customer"
+  },
+  {
+    "id": "C004",
+    "nama": "Adhi",
+    "email": "adhi@gmail.com",
+    "no_telp": "08123456789",
+    "password": "adhi123",
     "role": "customer"
   }
 ]
