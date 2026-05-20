@@ -1,0 +1,352 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+    font-family: 'Afacad', system-ui, sans-serif;
+}
+
+body.auth-page {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1A3A6B 0%, #2563A8 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+}
+
+.container {
+    display: flex;
+    gap: 40px;
+    align-items: center;
+    max-width: 900px;
+    width: 100%;
+}
+
+.left {
+    flex: 1;
+    border-radius: 20px;
+    overflow: hidden;
+    max-height: 520px;
+}
+
+.left img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 36px;
+    width: 360px;
+    flex-shrink: 0;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.logo h1 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #111;
+    letter-spacing: -0.3px;
+}
+
+.form-group {
+    margin-bottom: 14px;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid #D1D5DB;
+    border-radius: 10px;
+    font-size: 15px;
+    color: #111;
+    outline: none;
+    transition: border-color 0.2s;
+    font-family: 'Afacad', system-ui, sans-serif;
+}
+
+.form-group input::placeholder {
+    color: #9CA3AF;
+}
+
+.form-group input:focus {
+    border-color: #1A3A6B;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 18px;
+}
+
+.checkbox-group input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #1A3A6B;
+    cursor: pointer;
+}
+
+.checkbox-group label {
+    font-size: 13px;
+    color: #374151;
+    cursor: pointer;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 13px;
+    background: #111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: 'Afacad', system-ui, sans-serif;
+}
+
+.btn-primary:hover {
+    background: #1A3A6B;
+}
+
+.btn-action {
+    height: 32px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: none;
+    font-size: 13px;
+    font-family: 'Afacad', system-ui, sans-serif;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-action:hover { opacity: 0.8; }
+
+.btn-edit {
+    background: #E6F1FB;
+    color: #1A3A6B;
+}
+
+.btn-delete {
+    background: #FEE2E2;
+    color: #991B1B;
+}
+
+.btn-add {
+    background: #1A3A6B;
+    color: #fff;
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 8px;
+    border: none;
+    font-size: 14px;
+    font-family: 'Afacad', system-ui, sans-serif;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-add:hover { opacity: 0.85; }
+
+.error-msg {
+    background: #FEE2E2;
+    color: #991B1B;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    display: none;
+}
+
+.success-msg {
+    background: #D1FAE5;
+    color: #065F46;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 14px;
+    display: none;
+}
+
+.auth-link {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 13px;
+    color: #6B7280;
+}
+
+.auth-link a {
+    color: #1A3A6B;
+    font-weight: 500;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+body.admin-page,
+body.customer-page {
+    background: #FFFFFF;
+    min-height: 100vh;
+}
+
+nav {
+    background: #1A3A6B;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.nav-logo img {
+    height: 36px;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: rgba(255,255,255,0.75);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    padding-bottom: 4px;
+    transition: color 0.2s;
+}
+
+.nav-links a:hover { color: #fff; }
+
+.nav-links a.active {
+    color: #fff;
+    border-bottom: 2px solid #fff;
+}
+
+.nav-logout {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: rgba(255,255,255,0.75);
+    display: flex;
+    align-items: center;
+    transition: color 0.2s;
+}
+
+.nav-logout:hover { color: #fff; }
+
+.content {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 36px 24px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111;
+    margin-bottom: 16px;
+}
+
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}
+
+.stat-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 36px;
+}
+
+.stat-card {
+    background: #E6F1FB;
+    border-radius: 16px;
+    padding: 24px 28px;
+    text-align: center;
+}
+
+.stat-card h2 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1A3A6B;
+    margin-bottom: 12px;
+}
+
+.stat-card p {
+    font-size: 48px;
+    font-weight: 700;
+    color: #111;
+    line-height: 1;
+}
+
+.table-wrap {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #E5E7EB;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: center;
+}
+
+thead tr { background: #1A3A6B; }
+
+thead th {
+    padding: 14px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    text-align: center;
+}
+
+tbody tr {
+    border-bottom: 1px solid #F0F0F0;
+    transition: background 0.15s;
+}
+
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: #F9FAFB; }
+
+tbody td {
+    padding: 14px 20px;
+    font-size: 15px;
+    color: #374151;
+    text-align: center;
+}
+
+.badge {
+    display: inline-block;
+    padding: 3px 12px;
+    border-radius: 99px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.badge-aktif { background: #D1FAE5; color: #065F46; }
+.badge-selesai { background: #E6F1FB; color: #1A3A6B; }
+.badge-tersedia { background: #D1FAE5; color: #065F46; }
+.badge-disewa { background: #FEF3C7; color: #92400E; }

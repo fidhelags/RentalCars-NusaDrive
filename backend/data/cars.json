@@ -25,5 +25,14 @@
     "tarif_per_hari": 450000,
     "status": "disewa",
     "gambar": "rush.jpg"
+  },
+  {
+    "id": "M005",
+    "nama": "Rubicon",
+    "plat": "R 1 CH",
+    "kursi": 6,
+    "tarif_per_hari": 2000000,
+    "status": "tersedia",
+    "gambar": "rubicon.jpg"
   }
 ]

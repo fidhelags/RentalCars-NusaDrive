@@ -33,10 +33,15 @@ router.post('/login', (req, res) => {
         return res.status(403).json({ message: 'Anda tidak memiliki akses admin.' });
     }
 
+    // cek kalau admin tapi tidak centang admin
+    if (!isAdmin && user.role === 'admin') {
+        return res.status(403).json({ message: 'Silakan centang "Login sebagai Admin".' });
+    }
+
     // login berhasil
     res.json({
         message: 'Login berhasil.',
-        token: 'token-' + user.id, // token sederhana
+        token: 'token-' + user.id, 
         user: {
         id: user.id,
         nama: user.nama,
