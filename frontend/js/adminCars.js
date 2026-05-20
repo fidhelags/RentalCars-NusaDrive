@@ -4,42 +4,72 @@ if (!user || user.role !== 'admin') {
 }
 
 const API = 'http://localhost:3000/api/cars';
+const API_RENTALS = 'http://localhost:3000/api/rentals';
 let editId = null;
 
 function formatRupiah(angka) {
     return 'Rp ' + Number(angka).toLocaleString('id-ID');
 }
 
-function badgeStatus(status) {
-    const map = { 'tersedia': 'badge-tersedia', 'disewa': 'badge-disewa' };
-    const cls = map[status] || 'badge-tersedia';
-    return `<span class="badge ${cls}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+function badgeStatus(disewa) {
+    return disewa
+        ? '<span class="badge badge-disewa">Disewa</span>'
+        : '<span class="badge badge-tersedia">Tersedia</span>';
 }
 
 async function loadCars() {
     try {
-        const res = await fetch(API);
-        const cars = await res.json();
+        const [carsRes, rentalsRes] = await Promise.all([
+            fetch(API),
+            fetch(API_RENTALS)
+        ]);
+
+        const cars = await carsRes.json();
+        const rentals = await rentalsRes.json();
+
         const tbody = document.getElementById('carsTable');
 
         if (cars.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="6" style="color:#9CA3AF;">Belum ada data mobil.</td></tr>';
+            tbody.innerHTML = `
+                <tr>
+                    <td colspan="6" style="color:#9CA3AF;">
+                        Belum ada data mobil.
+                    </td>
+                </tr>
+            `;
             return;
         }
 
-        tbody.innerHTML = cars.map((car, i) => `
-            <tr>
-                <td>${i + 1}</td>
-                <td>${car.nama}</td>
-                <td>${car.plat}</td>
-                <td>${formatRupiah(car.tarif_per_hari)}</td>
-                <td>${badgeStatus(car.status)}</td>
-                <td>
-                    <button class="btn-action btn-edit" onclick="openEdit('${car.id}')">✏️</button>
-                    <button class="btn-action btn-delete" onclick="deleteCar('${car.id}')">🗑️</button>
-                </td>
-            </tr>
-        `).join('');
+        const today = new Date().toISOString().split('T')[0];
+
+        tbody.innerHTML = cars.map((car, i) => {
+
+            const sedangDisewa = rentals.some(r =>
+                r.mobil_id === car.id &&
+                r.status === 'aktif' &&
+                today >= r.tanggal_mulai &&
+                today <= r.tanggal_selesai
+            );
+
+            return `
+                <tr>
+                    <td>${i + 1}</td>
+                    <td>${car.nama}</td>
+                    <td>${car.plat}</td>
+                    <td>${formatRupiah(car.tarif_per_hari)}</td>
+                    <td>${badgeStatus(sedangDisewa)}</td>
+                    <td>
+                        <button class="btn-action btn-edit" onclick="openEdit('${car.id}')">
+                            <img src="../assets/write.svg" alt="Edit" width="16" height="16">
+                        </button>
+
+                        <button class="btn-action btn-delete" onclick="deleteCar('${car.id}')">
+                            <img src="../assets/delete.svg" alt="Delete" width="16" height="16">
+                        </button>
+                    </td>
+                </tr>
+            `;
+        }).join('');
 
     } catch (err) {
         console.error(err);
@@ -101,7 +131,6 @@ async function submitMobil() {
         kursi: parseInt(kursi),
         tarif_per_hari: parseInt(tarif),
         gambar: gambar || '',
-        status: 'tersedia'
     };
 
     try {

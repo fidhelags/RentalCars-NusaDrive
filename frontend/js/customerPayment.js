@@ -26,7 +26,14 @@ async function loadCar() {
 
         const imgEl = document.getElementById('carImg');
         if (car.gambar) {
-            imgEl.innerHTML = `<img src="../assets/cars/${car.gambar}" alt="${car.nama}" style="width:100%; height:180px; object-fit:cover;" onerror="this.outerHTML='<div style=\\"width:100%;height:180px;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:13px;\\">Foto tidak tersedia</div>'" />`;
+            imgEl.innerHTML = `
+                <img 
+                    src="../assets/cars/${car.gambar}" 
+                    alt="${car.nama}" 
+                    style="width:100%; height:180px; object-fit:cover;"
+                    onerror="this.outerHTML='<div style=&quot;width:100%;height:180px;display:flex;align-items:center;justify-content:center;color:#9CA3AF;font-size:13px;&quot;>Foto tidak tersedia</div>'"
+                />
+            `;
         } else {
             imgEl.textContent = 'Foto tidak tersedia';
         }
@@ -42,6 +49,10 @@ async function loadCar() {
     } catch (err) {
         console.error(err);
     }
+}
+
+function formatTanggal(tanggal) {
+    return new Date(tanggal).toLocaleDateString('id-ID');
 }
 
 async function hitungTotal() {
@@ -72,17 +83,25 @@ async function hitungTotal() {
         const res = await fetch(API_RENTALS);
         const rentals = await res.json();
 
-        const bentrok = rentals.find(r =>
+        const bentrokList = rentals.filter(r =>
             r.mobil_id === carId &&
             r.status === 'aktif' &&
             !(selesai <= r.tanggal_mulai || mulai >= r.tanggal_selesai)
         );
 
-        if (bentrok) {
-            errorMsg.textContent = `Mobil sudah disewa pada periode ${bentrok.tanggal_mulai} - ${bentrok.tanggal_selesai}.`;
+        if (bentrokList.length > 0) {
+            const periode = bentrokList
+                .map(r =>
+                    `${formatTanggal(r.tanggal_mulai)} - ${formatTanggal(r.tanggal_selesai)}`
+                )
+                .join(', ');
+
+            errorMsg.textContent = `Mobil sedang disewa pada periode ${periode}.`;
             errorMsg.style.display = 'block';
+
             btnBayar.disabled = true;
             btnBayar.textContent = 'Tidak Tersedia';
+
             return;
         }
 
@@ -155,3 +174,11 @@ async function handleBayar() {
 }
 
 loadCar();
+
+document
+    .getElementById('tanggal_mulai')
+    .addEventListener('change', hitungTotal);
+
+document
+    .getElementById('tanggal_selesai')
+    .addEventListener('change', hitungTotal);

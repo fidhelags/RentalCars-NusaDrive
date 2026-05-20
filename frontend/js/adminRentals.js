@@ -62,9 +62,13 @@ async function loadRentals() {
                     <td>${badgeStatus(trx.status)}</td>
                     <td>
                         ${trx.status === 'aktif'
-                    ? `<button class="btn-action btn-edit" onclick="selesaikan('${trx.id}')">✅</button>`
+                    ? `<button class="btn-action btn-edit" onclick="selesaikan('${trx.id}')">
+                            <img src="../assets/check.svg" alt="Selesaikan" width="16" height="16">
+                        </button>`
                     : ''}
-                        <button class="btn-action btn-delete" onclick="deleteRental('${trx.id}')">🗑️</button>
+                        <button class="btn-action btn-delete" onclick="deleteRental('${trx.id}')">
+                            <img src="../assets/delete.svg" alt="Delete" width="16" height="16">
+                        </button>
                     </td>
                 </tr>
             `;

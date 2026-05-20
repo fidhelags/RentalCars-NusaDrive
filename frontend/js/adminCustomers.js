@@ -25,7 +25,9 @@ async function loadCustomers() {
                 <td>${c.email}</td>
                 <td>${c.no_telp}</td>
                 <td>
-                    <button class="btn-action btn-delete" onclick="deleteCustomer('${c.id}')">🗑️</button>
+                    <button class="btn-action btn-delete" onclick="deleteCustomer('${c.id}')">
+                        <img src="../assets/delete.svg" alt="Delete" width="16" height="16">
+                    </button>
                 </td>
             </tr>
         `).join('');

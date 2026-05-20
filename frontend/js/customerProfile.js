@@ -21,8 +21,10 @@ async function loadProfil() {
 
 async function handleUpdateProfil() {
     const nama = document.getElementById('nama').value.trim();
+    const email = document.getElementById('email').value.trim();
     const no_telp = document.getElementById('no_telp').value.trim();
     const password = document.getElementById('password').value.trim();
+
     const errorMsg = document.getElementById('errorMsg');
     const successMsg = document.getElementById('successMsg');
 
@@ -41,10 +43,11 @@ async function handleUpdateProfil() {
         return;
     }
 
-    const email = document.getElementById('email').value.trim();
+    const body = { nama, email, no_telp };
 
-    const body = { nama, no_telp };
-    if (password) body.password = password;
+    if (password) {
+        body.password = password;
+    }
 
     try {
         const res = await fetch(`${API}/${user.id}`, {
@@ -61,7 +64,7 @@ async function handleUpdateProfil() {
             return;
         }
 
-        const updatedUser = { ...user, nama, no_telp };
+        const updatedUser = { ...user, nama, email, no_telp };
         localStorage.setItem('user', JSON.stringify(updatedUser));
 
         successMsg.textContent = 'Profil berhasil diperbarui!';
