@@ -58,7 +58,15 @@ router.post('/register', (req, res) => {
         return res.status(400).json({ message: 'Email sudah terdaftar.' });
     }
 
-    const newId = 'C' + String(users.length).padStart(3, '0');
+    const newId = generateId(users);
+
+    function generateId(users) {
+        const customers = users.filter(u => u.role === 'customer');
+        if (customers.length === 0) return 'C001';
+        const nums = customers.map(u => parseInt(u.id.replace('C', ''))).filter(n => !isNaN(n));
+        const max = Math.max(...nums);
+        return 'C' + String(max + 1).padStart(3, '0');
+    }
 
     const newUser = {
         id: newId,

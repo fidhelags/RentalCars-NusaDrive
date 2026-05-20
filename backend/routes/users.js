@@ -72,4 +72,34 @@ router.delete('/:id', (req, res) => {
     res.json({ message: 'Customer berhasil dihapus.' });
 });
 
+// PUT /api/users/:id
+router.put('/:id', (req, res) => {
+    const { nama, email, no_telp, password } = req.body;
+
+    const users = readUsers();
+    const index = users.findIndex(u => u.id === req.params.id);
+
+    if (index === -1) {
+        return res.status(404).json({ message: 'User tidak ditemukan.' });
+    }
+
+    if (email) {
+        const duplicate = users.find(u => u.email === email && u.id !== req.params.id);
+        if (duplicate) {
+            return res.status(400).json({ message: 'Email sudah digunakan user lain.' });
+        }
+    }
+
+    users[index] = {
+        ...users[index],
+        nama: nama || users[index].nama,
+        email: email || users[index].email,
+        no_telp: no_telp || users[index].no_telp,
+        password: password || users[index].password
+    };
+
+    writeUsers(users);
+    res.json({ message: 'Profil berhasil diupdate.', user: users[index] });
+});
+
 module.exports = router;
